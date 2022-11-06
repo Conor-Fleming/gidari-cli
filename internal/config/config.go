@@ -1,3 +1,10 @@
+// Copyright 2022 The Gidari Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//	http://www.apache.org/licenses/LICENSE-2.0
 package config
 
 import (
@@ -15,6 +22,11 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"golang.org/x/time/rate"
 	"gopkg.in/yaml.v2"
+)
+
+var (
+	ErrNilStorageOpts      = fmt.Errorf("storage options is nil")
+	ErrNilConnectionString = fmt.Errorf("connection string is nil")
 )
 
 // New takes a path to a config file and returns a gidari.Config object to be used by the CLI to run a transport
@@ -35,9 +47,7 @@ func New(ctx context.Context, path string) (*gidari.Config, error) {
 		return nil, fmt.Errorf("unable to parse URL: %w", err)
 	}
 
-	if err := addRequestData(ctx, cfg.RateLimitConfig, cfg.Requests); err != nil {
-		return nil, fmt.Errorf("unable to add request data: %w", err)
-	}
+	addRequestData(ctx, cfg.RateLimitConfig, cfg.Requests)
 
 	return cfg, nil
 }
@@ -74,6 +84,7 @@ func readFile(path string) (*gidari.Config, error) {
 func addMongoStorage(ctx context.Context, storage *gidari.StorageOptions) error {
 	// Create a new MongoDB connection
 	clientOptions := options.Client().ApplyURI("mongodb://mongo1:27017/defaultcoll")
+
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
 		return fmt.Errorf("unable to connect to MongoDB: %w", err)
@@ -95,11 +106,11 @@ func addMongoStorage(ctx context.Context, storage *gidari.StorageOptions) error 
 // connection.
 func addStorage(ctx context.Context, storage *gidari.StorageOptions) error {
 	if storage == nil {
-		return fmt.Errorf("storage options is nil")
+		return ErrNilStorageOpts
 	}
 
 	if storage.ConnectionString == nil {
-		return fmt.Errorf("connection string is nil")
+		return ErrNilConnectionString
 	}
 
 	// Check to see if the connection strings is prepended with "mongodb://"
@@ -129,7 +140,7 @@ func addAllStorage(ctx context.Context, opts []gidari.StorageOptions) ([]gidari.
 }
 
 // addRequestData cleans up the request data for the requests on a configuration.
-func addRequestData(ctx context.Context, cfg *gidari.RateLimitConfig, reqs []*gidari.Request) error {
+func addRequestData(_ context.Context, cfg *gidari.RateLimitConfig, reqs []*gidari.Request) {
 	// create a rate limiter to pass to all "flattenedRequest". This has to be defined outside of the scope of
 	// individual "flattenedRequest"s so that they all share the same rate limiter, even concurrent requests to
 	// different endpoints could cause a rate limit error on a web API.
@@ -148,6 +159,4 @@ func addRequestData(ctx context.Context, cfg *gidari.RateLimitConfig, reqs []*gi
 
 		req.RateLimiter = rateLimiter
 	}
-
-	return nil
 }

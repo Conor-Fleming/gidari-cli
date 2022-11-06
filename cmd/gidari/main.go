@@ -23,9 +23,6 @@ func main() {
 	// configFilepath is the path to the configuration file.
 	var configFilepath string
 
-	// verbose is a flag that enables verbose logging.
-	var verbose bool
-
 	cmd := &cobra.Command{
 		Long:       "Gidari uses a configuration file for querying web APIs and persisting resultant data.",
 		Use:        "gidari",
@@ -34,11 +31,10 @@ func main() {
 		Deprecated: "",
 		Version:    version.Gidari,
 
-		Run: func(_ *cobra.Command, args []string) { run(configFilepath, verbose, args) },
+		Run: func(_ *cobra.Command, args []string) { run(configFilepath, args) },
 	}
 
 	cmd.Flags().StringVar(&configFilepath, "config", "", "path to configuration")
-	cmd.Flags().BoolVar(&verbose, "verbose", false, "print log data as the binary executes")
 
 	if err := cmd.MarkFlagRequired("config"); err != nil {
 		logrus.Fatalf("error marking flag as required: %v", err)
@@ -49,7 +45,7 @@ func main() {
 	}
 }
 
-func run(configFilepath string, verboseLogging bool, _ []string) {
+func run(configFilepath string, _ []string) {
 	ctx := context.Background()
 
 	cfg, err := config.New(ctx, configFilepath)

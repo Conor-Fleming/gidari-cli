@@ -1,8 +1,14 @@
+// Copyright 2022 The Gidari Authors.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//	http://www.apache.org/licenses/LICENSE-2.0
 package config
 
 import (
 	"context"
-	"fmt"
 	"net/http"
 	"testing"
 	"time"
@@ -26,7 +32,7 @@ func TestReadFile(t *testing.T) {
 				RawURL: "https://chroniclingamerica.loc.gov",
 				RateLimitConfig: &gidari.RateLimitConfig{
 					Burst:  intPtr(1),
-					Period: timeDurPtr(time.Duration(time.Second)),
+					Period: timeDurPtr(time.Second),
 				},
 				Requests: []*gidari.Request{
 					{
@@ -91,21 +97,21 @@ func TestReadFile(t *testing.T) {
 				t.Fatalf("got %d requests, want %d", len(got.Requests), len(tcase.want.Requests))
 			}
 
-			for i, req := range got.Requests {
-				if req.Endpoint != tcase.want.Requests[i].Endpoint {
-					t.Fatalf("got request %d endpoint %s, want %s", i, req.Endpoint,
-						tcase.want.Requests[i].Endpoint)
+			for idx, req := range got.Requests {
+				if req.Endpoint != tcase.want.Requests[idx].Endpoint {
+					t.Fatalf("got request %d endpoint %s, want %s", idx, req.Endpoint,
+						tcase.want.Requests[idx].Endpoint)
 				}
 
-				if len(req.Query) != len(tcase.want.Requests[i].Query) {
+				if len(req.Query) != len(tcase.want.Requests[idx].Query) {
 					t.Fatalf("got %d query params, want %d", len(req.Query),
-						len(tcase.want.Requests[i].Query))
+						len(tcase.want.Requests[idx].Query))
 				}
 
 				for k, v := range req.Query {
-					if v != tcase.want.Requests[i].Query[k] {
+					if v != tcase.want.Requests[idx].Query[k] {
 						t.Fatalf("got query param %s=%s, want %s=%s", k, v, k,
-							tcase.want.Requests[i].Query[k])
+							tcase.want.Requests[idx].Query[k])
 					}
 				}
 			}
@@ -167,8 +173,6 @@ func TestAllStorage(t *testing.T) {
 					t.Fatal("got nil storage.Storage")
 				}
 
-				fmt.Printf("%+v\n", stg)
-
 				if err := stg.Ping(); err != nil {
 					t.Fatalf("error pinging storage: %v", err)
 				}
@@ -224,9 +228,7 @@ func TestAddRequestData(t *testing.T) {
 			t.Parallel()
 
 			rlc := tcase.config.RateLimitConfig
-			if err := addRequestData(context.Background(), rlc, tcase.config.Requests); err != nil {
-				t.Fatalf("error adding request data: %v", err)
-			}
+			addRequestData(context.Background(), rlc, tcase.config.Requests)
 
 			for idx, req := range tcase.config.Requests {
 				if req.RateLimiter == nil {
