@@ -63,10 +63,6 @@ func TestReadFile(t *testing.T) {
 				t.Fatalf("error reading file: %v", err)
 			}
 
-			if got == nil {
-				t.Fatal("got nil config")
-			}
-
 			if got.RawURL != tcase.want.RawURL {
 				t.Fatalf("got RawURL %s, want %s", got.RawURL, tcase.want.RawURL)
 			}
