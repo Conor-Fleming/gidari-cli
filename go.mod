@@ -4,7 +4,6 @@ go 1.19
 
 require (
 	github.com/alpstable/gidari v0.0.0-20221106042158-a56b2514ad44
-	github.com/alpstable/gidari/cmd/gidari v0.0.0-20221106042158-a56b2514ad44
 	github.com/alpstable/gmongo v0.0.0-20221031043101-be47f52cf05a
 	github.com/sirupsen/logrus v1.9.0
 	github.com/spf13/cobra v1.6.1

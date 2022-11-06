@@ -1,7 +1,5 @@
 github.com/alpstable/gidari v0.0.0-20221106042158-a56b2514ad44 h1:az5lmNEf9PaAyh87jvcMxfrXYDYhJLg44s52CJChPiw=
 github.com/alpstable/gidari v0.0.0-20221106042158-a56b2514ad44/go.mod h1:S3IlPu/tTTg8dt0ZoVgQXePRjQsYQ0R32H2WiICMTu0=
-github.com/alpstable/gidari/cmd/gidari v0.0.0-20221106042158-a56b2514ad44 h1:GodPWlUUwYPjzzheAnCTKcETaU3AZxPMlPkyKF4fq1s=
-github.com/alpstable/gidari/cmd/gidari v0.0.0-20221106042158-a56b2514ad44/go.mod h1:PFmZGvGJG3/Y+ssDBw1CDe1nUdD680mTwVLGejeD1WI=
 github.com/alpstable/gmongo v0.0.0-20221031043101-be47f52cf05a h1:/UNGp8GDmn1/1DejifueU0uaPpGkeox4BB+BXF6Kd7Y=
 github.com/alpstable/gmongo v0.0.0-20221031043101-be47f52cf05a/go.mod h1:L449hU2Hurj69p5FPnBrt1Mid5t4I1MM/ilJo3oIFCo=
 github.com/cpuguy83/go-md2man/v2 v2.0.2/go.mod h1:tgQtvFlXSQOSOSIRvRPT7W67SCa46tRHOmNcaadrF8o=
