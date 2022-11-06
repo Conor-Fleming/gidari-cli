@@ -13,6 +13,8 @@ Gidari CLI is a "web-to-storage" tool for querying web APIs and persisting the r
 go install github.com/alpstable/gidari-cli/cmd/gidari@latest
 ```
 
+For information on using the Go library, see [here](https://github.com/alpstable/gidari).
+
 ## Usage
 
 Using Gidari in command mode is a two step process:
