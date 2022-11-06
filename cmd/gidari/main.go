@@ -1,4 +1,4 @@
-// Copyright 2022 The Gidari Authors.
+// Copyright 2022 The Gidari CLI Authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@ import (
 
 	"github.com/alpstable/gidari"
 	"github.com/alpstable/gidari-cli/internal/config"
-	"github.com/alpstable/gidari/version"
+	"github.com/alpstable/gidari-cli/version"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 )
@@ -29,7 +29,7 @@ func main() {
 		Short:      "Persisted data from the web to your database",
 		Example:    "gidari --config config.yaml",
 		Deprecated: "",
-		Version:    version.Gidari,
+		Version:    version.GidariCLI,
 
 		Run: func(_ *cobra.Command, args []string) { run(configFilepath, args) },
 	}
