@@ -5,7 +5,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/alpstable/gidari-cli)](https://goreportcard.com/report/github.com/alpstable/gidari-cli)
 [![Discord](https://img.shields.io/discord/987810353767403550)](https://discord.gg/3jGYQz74s7)
 
-This repository is the CLI for the [Gidari](https://github.com/alpstable/gidari) library.
+Gidari CLI is a "web-to-storage" tool for querying web APIs and persisting the resulting data onto local storage. A configuration file is used to define how this querying and storing should occur. Once you have a configuration file, you can initiate this transport using the command `gidari --config <configuration.yml>`. See [here](https://youtu.be/NgeOJ50IWhY) for a quick demonstration.
 
 ## Installation
 
